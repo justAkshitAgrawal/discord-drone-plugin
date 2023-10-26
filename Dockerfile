@@ -1,13 +1,12 @@
 FROM node:18
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+WORKDIR /harness
 
-WORKDIR /home/node/app
-
-COPY package*.json ./
+COPY package*.json /harness/
 
 RUN npm install
 
-COPY . .
+COPY discord-ping.js /harness/
 
-CMD [ "node", "index.js" ]
+# CMD [ "node", "index.js" ]
+ENTRYPOINT [ "node", "/harness/discord-ping.js" ]
